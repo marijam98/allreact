@@ -7,57 +7,47 @@ const Cards = () => {
             id: 1,
             name: "Luca",
             sureName: "Anders",
-            state: true
+            status: true
         },
         {
             id: 2,
             name: "An",
             sureName: "Watson",
-            state: true
+            status: true
         },
         {
             id: 3,
             name: "Sarah",
             sureName: "Smitih",
-            state: false
+            status: false
         },
         {
             id: 4,
             name: "Johanna",
             sureName: "Jones",
-            state: false
+            status: false
         },
     ])
 
-    const deactivate = (user) => {
+    const changeStatus = (user) => {
         setData((prevData) => 
         prevData.map((oldUser) => {
-            console.log(prevData)
-            return (oldUser.id === user.id) ? {...oldUser, state: false} : oldUser
+            return (oldUser.id === user.id) ?  {...oldUser, status: !oldUser.status } : oldUser
         })
         );
-        console.log(user)
-    };
-    const activate = (user) => {
-        setData((prevData) => 
-        prevData.map((oldUser) => {
-            return (oldUser.id === user.id )? {...oldUser, state: true} : oldUser
-        })
-        );
-        console.log(user)
     };
 
     return (
         <div className="slider">
             <table>
                 <thead>Active users</thead>
-                <tbody>{data.filter((data) => { return data.state === true })
+                <tbody>{data.filter((data) => { return data.status === true })
                     .map((user) => {
                         return (
                             <tr>
                                 <td>{user.name}</td>
-                                <td>{user.state ? 'Active' : ''}</td>
-                                <td><button className='button' onClick={() => deactivate(user)}>deactivate</button></td>
+                                <td>{user.status ? 'Active' : ''}</td>
+                                <td><button className='button' onClick={() => changeStatus(user)}>deactivate</button></td>
                             </tr>
                         )
                     })}
@@ -65,13 +55,13 @@ const Cards = () => {
             </table>
             <table>
                 <thead>Inactive users</thead>
-                <tbody>{data.filter((data) => { return data.state === false })
+                <tbody>{data.filter((data) => { return data.status === false })
                     .map((user) => {
                         return (
                             <tr>
                                 <td>{user.name}</td>
-                                <td>{user.state ? '' : 'Inactive'}</td>
-                                <td><button className='button' onClick={() => activate(user)}>activate</button></td>
+                                <td>{user.status ? '' : 'Inactive'}</td>
+                                <td><button className='button' onClick={() => changeStatus(user)}>activate</button></td>
                             </tr>
                         )
                     })}
